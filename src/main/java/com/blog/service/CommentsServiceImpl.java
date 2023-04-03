@@ -6,6 +6,7 @@ import com.blog.entity.PostBlog;
 import com.blog.exception.ResourceNotFoundException;
 import com.blog.repository.CommentsRepository;
 import com.blog.repository.PostBlogRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,10 @@ import java.util.stream.Collectors;
 
 @Service
 public class CommentsServiceImpl implements CommentsService {
+
+    // inyecto Bean creado en SpringBootApplication
+    @Autowired
+    private ModelMapper modelMapper;
 
     /* inyecto los repositorios que se van a asociar */
     @Autowired
@@ -46,24 +51,27 @@ public class CommentsServiceImpl implements CommentsService {
         return commentsList.stream().map(c -> mapEntityToDTO(c)).collect(Collectors.toList());
     }*/
 
-    // Convierto de DTO a entidad
+    // Convierto de DTO a entidad - usando modelMapper
     private Comments mapDTOToEntity(CommentsDTO commentsDTO){
-        Comments comments = new Comments();
+        Comments comments = modelMapper.map(commentsDTO, Comments.class);
+
+        /*        Comments comments = new Comments();
 
         comments.setNombre(commentsDTO.getNombre());
         comments.setEmail(commentsDTO.getEmail());
-        comments.setComentario(commentsDTO.getComentario());
+        comments.setComentario(commentsDTO.getComentario()); */
 
         return comments;
     }
-    // Convierto entidad en DTO
+    // Convierto entidad en DTO - usando modelMapper
     private CommentsDTO mapEntityToDTO(Comments comments){
-        CommentsDTO commentsDTO = new CommentsDTO();
+        CommentsDTO commentsDTO = modelMapper.map(comments, CommentsDTO.class);
+        /*        CommentsDTO commentsDTO = new CommentsDTO();
 
         commentsDTO.setId(comments.getId());
         commentsDTO.setNombre(comments.getNombre());
         commentsDTO.setEmail(comments.getEmail());
-        commentsDTO.setComentario(comments.getComentario());
+        commentsDTO.setComentario(comments.getComentario());*/
 
         return commentsDTO;
     }

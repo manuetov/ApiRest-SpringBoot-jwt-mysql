@@ -1,5 +1,7 @@
 package com.blog.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,6 +21,7 @@ public class PostBlog {
 
     /* relación -> una publicación puede tener muchos comentarios */
     /* Cuando se elimine una publicación se eliminarán los comentarios asociados*/
+    @JsonBackReference // evita la recursión infinita al serializar objetos
     @OneToMany(mappedBy = "postBlog", cascade = CascadeType.ALL, orphanRemoval = true)
     /* lista de comentarios - HashSet almacena elementos únicos sin duplicados*/
     private Set<Comments> comments = new HashSet<>();
@@ -62,6 +65,14 @@ public class PostBlog {
 
     public void setContenido(String contenido) {
         this.contenido = contenido;
+    }
+
+    public Set<Comments> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comments> comments) {
+        this.comments = comments;
     }
 
     @Override

@@ -4,9 +4,11 @@ import com.blog.entity.PostBlog;
 import com.blog.DTO.PostBlogDTO;
 import com.blog.exception.ResourceNotFoundException;
 import com.blog.repository.PostBlogRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,8 +16,12 @@ import java.util.stream.Collectors;
 @Service
 public class PostBlogServiceImpl implements PostBlogService{
 
+    // inyecto Bean creada en SpringBootApplication
     @Autowired
-    public PostBlogRepository postBlogRepository;
+    private ModelMapper modelMapper;
+
+    @Autowired
+    private PostBlogRepository postBlogRepository;
 
     /* -------------- CREA UN POST --------------------------------*/
     @Override
@@ -69,29 +75,32 @@ public class PostBlogServiceImpl implements PostBlogService{
         postBlogRepository.delete(singlePostBlog);
     }
 
-    // Convierto de DTO a entidad
-    private PostBlog mapDTOtoEntity(PostBlogDTO postBlogDTO){
-        PostBlog postblog = new PostBlog();
+    // Convierto de DTO a entidad - usando modelMapper
+    private PostBlog mapDTOtoEntity(PostBlogDTO postBlogDTO) {
+        PostBlog postBlog = modelMapper.map(postBlogDTO, PostBlog.class);
+
+/*      PostBlog postblog = new PostBlog();
         postblog.setTitulo(postBlogDTO.getTitulo());
         postblog.setDescripcion(postBlogDTO.getDescripcion());
-        postblog.setContenido(postBlogDTO.getContenido());
+        postblog.setContenido(postBlogDTO.getContenido()); */
 
-        return postblog;
+        return postBlog;
     }
 
-    // Convierto entidad en DTO
+    // Convierto entidad en DTO - usando modelMapper
     private PostBlogDTO mapEntitytoDTO(PostBlog postBlog){
+        PostBlogDTO postBlogDTO = modelMapper.map(postBlog, PostBlogDTO.class);
+
+/*
         PostBlogDTO postBlogDTO = new PostBlogDTO();
 
         postBlogDTO.setId(postBlog.getId());
         postBlogDTO.setTitulo(postBlog.getTitulo());
         postBlogDTO.setDescripcion(postBlog.getDescripcion());
-        postBlogDTO.setContenido(postBlog.getContenido());
+        postBlogDTO.setContenido(postBlog.getContenido()); */
 
         return postBlogDTO;
     }
-
-
 
 
 }
