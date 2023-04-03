@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -29,12 +30,12 @@ public class PostBlogController {
     }
 
     @PostMapping
-    public ResponseEntity<PostBlogDTO> savePost(@RequestBody PostBlogDTO postBlogDTO){
+    public ResponseEntity<PostBlogDTO> savePost(@Valid @RequestBody PostBlogDTO postBlogDTO){
         return new ResponseEntity<>(postBlogService.createPost(postBlogDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PostBlogDTO> updateSinglePost(@RequestBody PostBlogDTO postBlogDTO,
+    public ResponseEntity<PostBlogDTO> updateSinglePost(@Valid @RequestBody PostBlogDTO postBlogDTO,
                                                         @PathVariable(name = "id") long id) {
         return new ResponseEntity<>(postBlogService.updatePostBlogById(postBlogDTO, id), HttpStatus.CREATED);
     }

@@ -2,13 +2,21 @@ package com.blog.DTO;
 
 import com.blog.entity.Comments;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 public class PostBlogDTO {
 
     private Long id;
+
+    @NotEmpty
+    @Size(min = 3, message = "El titulo debe contener más de 3 caracteres")
     private String titulo;
+    @NotEmpty
+    @Size(min = 3, message = "La descripción debe contener más de 10 caracteres")
     private String descripcion;
+    @NotEmpty
     private String contenido;
     // comentarios
     private Set<Comments> comments;
