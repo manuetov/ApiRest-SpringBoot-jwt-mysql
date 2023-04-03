@@ -1,15 +1,13 @@
-package com.tecnologia.blogspringbootapirestjwtmysql.service;
+package com.blog.service;
 
-import com.tecnologia.blogspringbootapirestjwtmysql.DTO.PostBlogDTO;
-import com.tecnologia.blogspringbootapirestjwtmysql.entity.PostBlog;
-import com.tecnologia.blogspringbootapirestjwtmysql.exception.ResourceNotFoundException;
-import com.tecnologia.blogspringbootapirestjwtmysql.repository.PostBlogRepository;
+import com.blog.entity.PostBlog;
+import com.blog.DTO.PostBlogDTO;
+import com.blog.exception.ResourceNotFoundException;
+import com.blog.repository.PostBlogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,8 +17,7 @@ public class PostBlogServiceImpl implements PostBlogService{
     @Autowired
     public PostBlogRepository postBlogRepository;
 
-
-    /* -------------- CREA UN POST ------------------------------*/
+    /* -------------- CREA UN POST --------------------------------*/
     @Override
     public PostBlogDTO createPost(PostBlogDTO postBlogDTO) {
         PostBlog postBlog = mapDTOtoEntity(postBlogDTO);
@@ -33,15 +30,15 @@ public class PostBlogServiceImpl implements PostBlogService{
         return postBlogResponseDTO;
     }
 
-    /* ------------------ DEVUELVE LISTADO DE POSTS -------------*/
+    /* ------------------ DEVUELVE LISTADO DE POSTS ---------------*/
     @Override
-    public List<PostBlogDTO> listAllPost(){
+    public List<PostBlogDTO> listAllPost() {
         // obtengo un listado de postBlog de la BBDD
         List<PostBlog> listPostBlog = postBlogRepository.findAll();
         return listPostBlog.stream().map(p -> mapEntitytoDTO(p)).collect(Collectors.toList());
     }
 
-    /* ----------------- DEVUELE UN POST POR ID ----------------*/
+    /* ----------------- DEVUELE UN POST POR SU ID ----------------*/
     @Override
     public PostBlogDTO getPostBlogById(long id) {
         PostBlog singlePostBlog = postBlogRepository.findById(id)
@@ -49,7 +46,7 @@ public class PostBlogServiceImpl implements PostBlogService{
         return mapEntitytoDTO(singlePostBlog);
     }
 
-    /* ---------------- ACTUALIZA UN POST POR ID --------------*/
+    /* ---------------- ACTUALIZA UN POST POR SU ID --------------*/
     @Override
     public PostBlogDTO updatePostBlogById(PostBlogDTO postBlogDTO, long id) {
         PostBlog singlePostBlog = postBlogRepository.findById(id)
@@ -63,16 +60,14 @@ public class PostBlogServiceImpl implements PostBlogService{
 
         return mapEntitytoDTO(updateSinglePostBlog);
     }
-
+    /* ---------------- BORRA UN POST POR SU ID ------------------*/
     @Override
     public void deletePostBlogById(long id) {
         PostBlog singlePostBlog = postBlogRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("PostBlog", "id", id));
 
         postBlogRepository.delete(singlePostBlog);
-
     }
-
 
     // Convierto de DTO a entidad
     private PostBlog mapDTOtoEntity(PostBlogDTO postBlogDTO){

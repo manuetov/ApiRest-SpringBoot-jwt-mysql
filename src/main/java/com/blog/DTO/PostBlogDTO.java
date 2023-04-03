@@ -1,4 +1,4 @@
-package com.tecnologia.blogspringbootapirestjwtmysql.DTO;
+package com.blog.DTO;
 
 public class PostBlogDTO {
 
@@ -10,9 +10,7 @@ public class PostBlogDTO {
     public PostBlogDTO() {
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
 
     public void setId(Long id) {
         this.id = id;

@@ -1,7 +1,6 @@
-package com.tecnologia.blogspringbootapirestjwtmysql.service;
+package com.blog.service;
 
-import com.tecnologia.blogspringbootapirestjwtmysql.DTO.PostBlogDTO;
-import com.tecnologia.blogspringbootapirestjwtmysql.entity.PostBlog;
+import com.blog.DTO.PostBlogDTO;
 
 import java.util.List;
 

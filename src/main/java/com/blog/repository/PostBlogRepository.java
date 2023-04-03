@@ -1,6 +1,6 @@
-package com.tecnologia.blogspringbootapirestjwtmysql.repository;
+package com.blog.repository;
 
-import com.tecnologia.blogspringbootapirestjwtmysql.entity.PostBlog;
+import com.blog.entity.PostBlog;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 // JpaRepository<T, ID>

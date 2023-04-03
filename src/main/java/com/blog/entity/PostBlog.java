@@ -1,20 +1,29 @@
-package com.tecnologia.blogspringbootapirestjwtmysql.entity;
+package com.blog.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-// no permite titulo repetido
+// @UniqueConstraint => no permite titulo repetido
 @Table(name ="posts", uniqueConstraints = {@UniqueConstraint(columnNames = {"titulo"})})
 public class PostBlog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String titulo;
     private String descripcion;
     private String contenido;
 
-    public PostBlog(){};
+    /* relación -> una publicación puede tener muchos comentarios */
+    /* Cuando se elimine una publicación se eliminarán los comentarios asociados*/
+    @OneToMany(mappedBy = "postBlog", cascade = CascadeType.ALL, orphanRemoval = true)
+    /* lista de comentarios - HashSet almacena elementos únicos sin duplicados*/
+    private Set<Comments> comments = new HashSet<>();
+
+    public PostBlog() {};
 
     public PostBlog(Long id, String titulo, String descripcion, String contenido) {
         this.id = id;
