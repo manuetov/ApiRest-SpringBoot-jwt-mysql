@@ -5,6 +5,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -19,6 +20,7 @@ import java.util.Map;
 @ControllerAdvice // capturará todas las excepciones de la App
 public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
 
+    // EXCEPCION PARA INFORMAR DE RECURSO NO ENCONTRADO
     @ExceptionHandler(ResourceNotFoundException.class) // manejará las expcepciones que se hayan detallado
     public ResponseEntity<ErrorDetailsDTO> resourcesNotFoundException(
             ResourceNotFoundException exception,
@@ -31,6 +33,17 @@ public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(errorDetailsDTO, HttpStatus.NOT_FOUND);
     }
+
+
+    // global exceptions
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorDetailsDTO> handleGlobalException(Exception exception,
+                                                              WebRequest webRequest){
+        ErrorDetailsDTO errorDetails = new ErrorDetailsDTO(new Date(), exception.getMessage(),
+                webRequest.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 
     @Override // para mostrar las validaciones
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
@@ -46,5 +59,14 @@ public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
         });
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
         /*return super.handleMethodArgumentNotValid(ex, headers, status, request);*/
+    }
+
+    // EXCEPCION PARA PERMITIR/DENEGAR ACCESO A USUARIOS SEGUN ROLES
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ErrorDetailsDTO> handleAccessDeniedException(AccessDeniedException exception,
+                                                                    WebRequest webRequest){
+        ErrorDetailsDTO errorDetails = new ErrorDetailsDTO(new Date(), exception.getMessage(),
+                webRequest.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.UNAUTHORIZED);
     }
 }

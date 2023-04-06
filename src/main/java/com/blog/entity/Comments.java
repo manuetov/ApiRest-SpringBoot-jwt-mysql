@@ -1,6 +1,14 @@
 package com.blog.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
+
+//lombok
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 
 @Entity
 @Table (name = "comments")
@@ -18,7 +26,10 @@ public class Comments {
     @JoinColumn(name = "post_blog_id", nullable = false)
     private PostBlog postBlog;
 
-    /* ----------- CONSTRUCTORES -----------*/
+
+
+
+/*    *//* ----------- CONSTRUCTORES -----------*//*
     public Comments() {};
 
     public Comments(Long id, String nombre, String email, String comentario, PostBlog postBlog) {
@@ -29,7 +40,7 @@ public class Comments {
         this.postBlog = postBlog;
     }
 
-    /* ---------- GETTERS & SETTERS ---------*/
+    *//* ---------- GETTERS & SETTERS ---------*//*
     public Long getId() {
         return id;
     }
@@ -79,5 +90,5 @@ public class Comments {
                 ", comentario='" + comentario + '\'' +
                 ", postBlog=" + postBlog +
                 '}';
-    }
+    }*/
 }

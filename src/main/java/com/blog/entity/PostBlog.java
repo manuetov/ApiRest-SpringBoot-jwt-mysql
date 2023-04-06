@@ -3,8 +3,17 @@ package com.blog.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.*;
+import lombok.*;
+
 import java.util.HashSet;
 import java.util.Set;
+
+//lombok
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 
 @Entity
 // @UniqueConstraint => no permite titulo repetido
@@ -26,7 +35,10 @@ public class PostBlog {
     /* lista de comentarios - HashSet almacena elementos únicos sin duplicados*/
     private Set<Comments> comments = new HashSet<>();
 
-    public PostBlog() {};
+
+
+
+/*    public PostBlog() {};
 
     public PostBlog(Long id, String titulo, String descripcion, String contenido) {
         this.id = id;
@@ -83,5 +95,5 @@ public class PostBlog {
                 ", descripcion='" + descripcion + '\'' +
                 ", contenido='" + contenido + '\'' +
                 '}';
-    }
+    }*/
 }
