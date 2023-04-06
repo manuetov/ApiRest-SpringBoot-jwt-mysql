@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
-public class BlogMain {
+public class Main {
 
 	// inyecto dependencia a springBoot, sirve para mapear DTO.
 	@Bean
@@ -32,7 +32,7 @@ public class BlogMain {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(BlogMain.class, args);
+		SpringApplication.run(Main.class, args);
 	}
 
 }

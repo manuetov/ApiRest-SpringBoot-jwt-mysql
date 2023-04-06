@@ -3,6 +3,7 @@ package com.blog.exception;
 import com.blog.DTO.ErrorDetailsDTO;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -34,7 +35,7 @@ public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
     @Override // para mostrar las validaciones
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex,
-            HttpHeaders headers, HttpStatus status,
+            HttpHeaders headers, HttpStatusCode status,
             WebRequest request) {
 
         Map<String, String> errors = new HashMap<>();
