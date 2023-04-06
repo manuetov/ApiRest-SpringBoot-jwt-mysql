@@ -6,14 +6,14 @@ import java.util.List;
 
 public interface PostBlogService {
 
-    public PostBlogDTO createPost(PostBlogDTO postBlogDTO);
+    PostBlogDTO createPost(PostBlogDTO postBlogDTO);
 
-    public List<PostBlogDTO> listAllPost();
+    List<PostBlogDTO> listAllPost();
 
-    public PostBlogDTO getPostBlogById(long id);
+    PostBlogDTO getPostBlogById(long id);
 
-    public PostBlogDTO updatePostBlogById(PostBlogDTO postBlogDTO, long id);
+    PostBlogDTO updatePostBlogById(PostBlogDTO postBlogDTO, long id);
 
-    public void deletePostBlogById(long id);
+    void deletePostBlogById(long id);
 
 }

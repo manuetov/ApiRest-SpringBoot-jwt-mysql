@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface CommentsRepository extends JpaRepository<Comments, Long> {
 
-    /*public List<Comments> findByBlogPostId(long blogPostId);
-*/
+    // QUERY QUE BUSCA TODOS LOS COMENTARIOS DE UN POST DETERMINADO POR SU ID
+    List<Comments> findByPostBlogId(long blogPostId);
+
 }

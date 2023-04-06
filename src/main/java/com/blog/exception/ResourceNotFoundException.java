@@ -3,6 +3,7 @@ package com.blog.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+/* LANZA EXCEPCIÓN SI LA PUBLICACIÓN NO SE ENCUENTRA/EXISTE POR SU ID*/
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
 public class ResourceNotFoundException extends RuntimeException{
     private final static long serialVersionUID = 1L;
