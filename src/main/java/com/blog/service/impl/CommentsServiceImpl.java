@@ -1,4 +1,4 @@
-package com.blog.service;
+package com.blog.service.impl;
 
 import com.blog.DTO.CommentsDTO;
 import com.blog.entity.Comments;
@@ -7,6 +7,7 @@ import com.blog.exception.BlogPostExceptions;
 import com.blog.exception.ResourceNotFoundException;
 import com.blog.repository.CommentsRepository;
 import com.blog.repository.PostBlogRepository;
+import com.blog.service.CommentsService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -20,7 +20,7 @@ import java.util.Map;
 @ControllerAdvice // capturará todas las excepciones de la App
 public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
 
-    // EXCEPCION PARA INFORMAR DE RECURSO NO ENCONTRADO
+    // EXCEPCION PARA INFORMAR DE RECURSO NO ENCONTRADO - STATUS 404
     @ExceptionHandler(ResourceNotFoundException.class) // manejará las expcepciones que se hayan detallado
     public ResponseEntity<ErrorDetailsDTO> resourcesNotFoundException(
             ResourceNotFoundException exception,
@@ -34,8 +34,18 @@ public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorDetailsDTO, HttpStatus.NOT_FOUND);
     }
 
+    // EXCEPCIÓN PARA INFORMAR DE UNA PUEDE SER PROCESADA - STATUS 400
+    @ExceptionHandler(BlogPostExceptions.class)
+    public ResponseEntity<ErrorDetailsDTO> handleBlogPostException(BlogPostExceptions blogPostExceptions,
+                                                                   WebRequest webRequest) {
+        ErrorDetailsDTO errorDetails = new ErrorDetailsDTO(new Date(),
+                blogPostExceptions.getMessage(),
+                webRequest.getDescription(false));
 
-    // global exceptions
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
+
+    // EXCEPCIONES GLOBALES DE SERVIDOR - STATUS 500
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDetailsDTO> handleGlobalException(Exception exception,
                                                               WebRequest webRequest){
@@ -61,7 +71,7 @@ public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
         /*return super.handleMethodArgumentNotValid(ex, headers, status, request);*/
     }
 
-    // EXCEPCION PARA PERMITIR/DENEGAR ACCESO A USUARIOS SEGUN ROLES
+    // EXCEPCION INFORMA DE ACCESO NO PERMITIDO A USUARIO SEGUN SU ROLE - STATUS 401
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ErrorDetailsDTO> handleAccessDeniedException(AccessDeniedException exception,
                                                                     WebRequest webRequest){

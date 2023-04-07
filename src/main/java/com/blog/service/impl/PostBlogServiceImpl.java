@@ -1,9 +1,10 @@
-package com.blog.service;
+package com.blog.service.impl;
 
 import com.blog.entity.PostBlog;
 import com.blog.DTO.PostBlogDTO;
 import com.blog.exception.ResourceNotFoundException;
 import com.blog.repository.PostBlogRepository;
+import com.blog.service.PostBlogService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class PostBlogServiceImpl implements PostBlogService{
+public class PostBlogServiceImpl implements PostBlogService {
 
     // inyecto Bean creada en SpringBootApplication
     @Autowired
