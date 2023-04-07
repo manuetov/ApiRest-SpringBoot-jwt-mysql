@@ -20,14 +20,14 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nombre;
+    private String name;
 
     @Column(nullable = false, unique = true)
-    private String usuario;
+    private String username;
     @Column(nullable = false, unique = true)
-    private String correo;
+    private String email;
     @Column(nullable = false)
-    private String contrasena;
+    private String password;
 
     // en el momento que se guarde un user(parent) se guardará tambien su role(child)
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
